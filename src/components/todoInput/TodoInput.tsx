@@ -18,6 +18,7 @@ const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
         onChange={(itemInput) => setInputValue(itemInput.target.value)}
       />
       <button
+        disabled={!inputValue.trim()}
         onClick={() => {
           const sameElement = todoList.find((todoListItem) => {
             return inputValue === todoListItem.name;
@@ -25,7 +26,7 @@ const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
           if (!sameElement) {
             setTodoList([
               ...todoList,
-              { name: inputValue, id: todoList.length + 1, subList: [] },
+              { name: inputValue, id: Date.now(), subList: [] },
             ]);
             setInputValue("");
           }

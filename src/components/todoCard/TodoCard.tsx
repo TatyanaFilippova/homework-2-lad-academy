@@ -21,7 +21,6 @@ const TodoCard = ({
   subList,
 }: TodoCardProps) => {
   const [cardData, setCardData] = useState("");
-  console.log(cardData);
   return (
     <div className={css.wrapper}>
       <div className={css.wrapper_name_button}>
@@ -38,7 +37,7 @@ const TodoCard = ({
           Удалить
         </button>
       </div>
-      <div className={css.input_button}>
+      <div className={css.wrapper_input_button}>
         <input
           className={css.input}
           placeholder="введите задачу"
@@ -49,16 +48,13 @@ const TodoCard = ({
           className={css.button}
           onClick={() => {
             setTodoList(
-              todoList.map((item) => {
-                if (item.id !== id) {
-                  return item;
+              todoList.map((itemTodoList) => {
+                if (itemTodoList.id !== id) {
+                  return itemTodoList;
                 }
                 return {
-                  ...item,
-                  subList: [
-                    ...subList,
-                    { id: item.subList.length + 1, name: cardData },
-                  ],
+                  ...itemTodoList,
+                  subList: [...subList, { id: Date.now(), name: cardData }],
                 };
               }),
             );
@@ -67,9 +63,15 @@ const TodoCard = ({
           Добавить
         </button>
       </div>
-      {subList.map((item) => {
-        return <div>{item.name}</div>;
-      })}
+      <div className={css.wrapper_subList}>
+        {subList.map((item) => {
+          return (
+            <div>
+              {item.name} <button className={css.button}>Удалить</button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

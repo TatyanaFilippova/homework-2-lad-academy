@@ -17,10 +17,17 @@ function App() {
   return (
     <div className={css.wrapper}>
       <TodoInput setTodoList={setTodoList} todoList={todoList} />
-
-      {todoList.map((todoItem) => (
-        <TodoCard key={todoItem.id} title={todoItem.name} />
-      ))}
+      <div className={css.wrapper_card}>
+        {todoList.map((todoItem) => (
+          <TodoCard
+            key={todoItem.id}
+            name={todoItem.name}
+            todoList={todoList}
+            setTodoList={setTodoList}
+            id={todoItem.id}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -16,7 +16,7 @@ const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
         className={css.text_input}
         placeholder="введите задачу"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(itemInput) => setInputValue(itemInput.target.value)}
       />
       <button
         onClick={() => {
@@ -28,6 +28,7 @@ const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
               ...todoList,
               { name: inputValue, id: todoList.length + 1, subList: [] },
             ]);
+            setInputValue("");
           }
         }}
       >

@@ -1,0 +1,36 @@
+.wrapper {
+  margin-top: 50px;
+  border: 1px solid gray;
+  padding: 20px 25px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.title {
+  padding-bottom: 20px;
+  text-align: left;
+}
+
+.wrapper_name_button {
+  display: flex;
+  gap: 15px;
+  padding-bottom: 10px;
+  justify-content: space-between;
+}
+
+.button {
+  margin-left: 10px;
+  height: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.input {
+  width: 100%;
+}
+
+.input_button {
+  display: flex;
+}

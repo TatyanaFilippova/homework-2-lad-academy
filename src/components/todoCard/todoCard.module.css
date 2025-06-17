@@ -18,6 +18,8 @@
   gap: 15px;
   padding-bottom: 10px;
   justify-content: space-between;
+  text-align: left;
+  align-content: center;
 }
 
 .button {
@@ -36,6 +38,5 @@
 }
 
 .wrapper_subList{
-
   margin-top: 20px;
 }

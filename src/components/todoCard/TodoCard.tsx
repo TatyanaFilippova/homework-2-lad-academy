@@ -46,18 +46,27 @@ const TodoCard = ({
         />
         <button
           className={css.button}
+          disabled={!cardData.trim()}
           onClick={() => {
-            setTodoList(
-              todoList.map((itemTodoList) => {
+            const sameElement = subList.find((subListItem) => {
+              return cardData === subListItem.name;
+            });
+            if (!sameElement) {
+              const nextTodoList = todoList.map((itemTodoList) => {
                 if (itemTodoList.id !== id) {
                   return itemTodoList;
                 }
                 return {
                   ...itemTodoList,
-                  subList: [...subList, { id: Date.now(), name: cardData }],
+                  subList: [
+                    ...itemTodoList.subList,
+                    { id: Date.now(), name: cardData },
+                  ],
                 };
-              }),
-            );
+              });
+              setCardData("");
+              setTodoList(nextTodoList);
+            }
           }}
         >
           Добавить
@@ -66,8 +75,27 @@ const TodoCard = ({
       <div className={css.wrapper_subList}>
         {subList.map((item) => {
           return (
-            <div>
-              {item.name} <button className={css.button}>Удалить</button>
+            <div className={css.wrapper_name_button}>
+              {item.name}
+              <button
+                className={css.button}
+                onClick={() => {
+                  const nextTodoList = todoList.map((todoItem) => {
+                    if (todoItem.id !== id) {
+                      return todoItem;
+                    }
+                    return {
+                      ...todoItem,
+                      subList: subList.filter((subItem) => {
+                        return subItem.id !== item.id;
+                      }),
+                    };
+                  });
+                  setTodoList(nextTodoList);
+                }}
+              >
+                Удалить
+              </button>
             </div>
           );
         })}

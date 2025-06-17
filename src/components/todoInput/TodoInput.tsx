@@ -24,10 +24,11 @@ const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
             return inputValue === todoListItem.name;
           });
           if (!sameElement) {
-            setTodoList([
+            const nextTodoList = [
               ...todoList,
               { name: inputValue, id: Date.now(), subList: [] },
-            ]);
+            ];
+            setTodoList(nextTodoList);
             setInputValue("");
           }
         }}

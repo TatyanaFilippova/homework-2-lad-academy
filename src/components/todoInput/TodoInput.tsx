@@ -9,7 +9,6 @@ interface TodoInputProps {
 
 const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
   const [inputValue, setInputValue] = useState("");
-
   return (
     <div className={css.wrapper}>
       <input

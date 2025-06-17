@@ -2,14 +2,24 @@ import { useState } from "react";
 import type { TodoItem } from "../../App";
 import css from "./todoCard.module.css";
 
-interface Props {
+interface TodoCardProps {
   name: string;
   id: number;
   todoList: TodoItem[];
   setTodoList: (todoList: TodoItem[]) => void;
+  subList: {
+    id: number;
+    name: string;
+  }[];
 }
 
-const TodoCard = ({ name, todoList, setTodoList, id }: Props) => {
+const TodoCard = ({
+  name,
+  todoList,
+  setTodoList,
+  id,
+  subList,
+}: TodoCardProps) => {
   const [cardData, setCardData] = useState("");
   console.log(cardData);
   return (
@@ -35,8 +45,31 @@ const TodoCard = ({ name, todoList, setTodoList, id }: Props) => {
           value={cardData}
           onChange={(itemInput) => setCardData(itemInput.target.value)}
         />
-        <button className={css.button}>Добавить</button>
+        <button
+          className={css.button}
+          onClick={() => {
+            setTodoList(
+              todoList.map((item) => {
+                if (item.id !== id) {
+                  return item;
+                }
+                return {
+                  ...item,
+                  subList: [
+                    ...subList,
+                    { id: item.subList.length + 1, name: cardData },
+                  ],
+                };
+              }),
+            );
+          }}
+        >
+          Добавить
+        </button>
       </div>
+      {subList.map((item) => {
+        return <div>{item.name}</div>;
+      })}
     </div>
   );
 };

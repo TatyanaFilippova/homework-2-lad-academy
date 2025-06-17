@@ -25,6 +25,7 @@ function App() {
             todoList={todoList}
             setTodoList={setTodoList}
             id={todoItem.id}
+            subList={todoItem.subList}
           />
         ))}
       </div>

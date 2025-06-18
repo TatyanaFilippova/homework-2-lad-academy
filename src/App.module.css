@@ -16,6 +16,10 @@
 .wrapper_card {
   text-align: end;
   display: flex;
-  gap: 30px;
+  gap: 42px;
   flex-wrap: wrap;
+}
+
+.title {
+  text-align: center;
 }

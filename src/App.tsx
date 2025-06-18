@@ -1,6 +1,6 @@
 import TodoInput from "./components/todoInput/TodoInput.tsx";
 import css from "./App.module.css";
-import TodoCard from "./components/todoCard/TodoCard.tsx";
+import TodoInputCard from "./components/todoCard/TodoInputCard.tsx";
 import { useState } from "react";
 
 export interface TodoItem {
@@ -16,10 +16,11 @@ function App() {
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
   return (
     <div className={css.wrapper}>
+      <h1 className={css.title}>To-do list</h1>
       <TodoInput setTodoList={setTodoList} todoList={todoList} />
       <div className={css.wrapper_card}>
         {todoList.map((todoItem) => (
-          <TodoCard
+          <TodoInputCard
             key={todoItem.id}
             name={todoItem.name}
             todoList={todoList}

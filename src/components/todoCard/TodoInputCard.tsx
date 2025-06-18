@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { TodoItem } from "../../App";
-import css from "./todoCard.module.css";
+import css from "./todoInputCard.module.css";
 
 interface TodoCardProps {
   name: string;
@@ -13,7 +13,7 @@ interface TodoCardProps {
   }[];
 }
 
-const TodoCard = ({
+const TodoInputCard = ({
   name,
   todoList,
   setTodoList,
@@ -24,7 +24,7 @@ const TodoCard = ({
   return (
     <div className={css.wrapper}>
       <div className={css.wrapper_name_button}>
-        <div className={css.title}>{name}</div>
+        <h2 className={css.title}>{name}</h2>
         <button
           className={css.button}
           onClick={() => {
@@ -73,10 +73,10 @@ const TodoCard = ({
         </button>
       </div>
       <div className={css.wrapper_subList}>
-        {subList.map((item) => {
+        {subList.map((subListItem) => {
           return (
-            <div className={css.wrapper_name_button}>
-              {item.name}
+            <div className={css.wrapper_name}>
+              <h3 className={css.title_name}> ▪ {subListItem.name} </h3>
               <button
                 className={css.button}
                 onClick={() => {
@@ -87,7 +87,7 @@ const TodoCard = ({
                     return {
                       ...todoItem,
                       subList: subList.filter((subItem) => {
-                        return subItem.id !== item.id;
+                        return subItem.id !== subListItem.id;
                       }),
                     };
                   });
@@ -104,4 +104,4 @@ const TodoCard = ({
   );
 };
 
-export default TodoCard;
+export default TodoInputCard;

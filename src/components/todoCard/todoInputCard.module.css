@@ -5,21 +5,30 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.title_name {
+  text-align: left;
+  margin: 0;
 }
 
 .title {
-  padding-bottom: 20px;
-  text-align: left;
+  font-weight: bold;
+  margin: 0;
 }
 
-.wrapper_name_button {
+.wrapper_name_button,
+.wrapper_name {
   display: flex;
-  gap: 15px;
-  padding-bottom: 10px;
+  padding-bottom: 30px;
   justify-content: space-between;
   text-align: left;
-  align-content: center;
+  align-items: center;
+}
+
+.wrapper_name {
+  padding-left: 10px;
+  padding-bottom: 20px;
 }
 
 .button {
@@ -31,12 +40,16 @@
 
 .input {
   width: 100%;
+
+  &::placeholder {
+    padding-left: 10px;
+  }
 }
 
 .wrapper_input_button {
   display: flex;
 }
 
-.wrapper_subList{
-  margin-top: 20px;
+.wrapper_subList {
+  margin-top: 40px;
 }

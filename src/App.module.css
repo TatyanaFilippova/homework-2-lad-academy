@@ -9,14 +9,14 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 80%;
+  max-width: 1138px;
   margin: 100px auto 0;
 }
 
 .wrapper_card {
   text-align: end;
   display: flex;
-  gap: 42px;
+  gap: 35px;
   flex-wrap: wrap;
 }
 

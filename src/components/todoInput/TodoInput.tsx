@@ -13,7 +13,7 @@ const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
     <div className={css.wrapper}>
       <input
         className={css.text_input}
-        placeholder="введите задачу"
+        placeholder="Введите задачу"
         value={inputValue}
         onChange={(itemInput) => setInputValue(itemInput.target.value)}
       />

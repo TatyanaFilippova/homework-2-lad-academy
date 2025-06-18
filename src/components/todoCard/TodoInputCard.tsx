@@ -20,7 +20,7 @@ const TodoInputCard = ({
   id,
   subList,
 }: TodoCardProps) => {
-  const [cardData, setCardData] = useState("");
+  const [cardInputValue, setCardInputValue] = useState("");
   return (
     <div className={css.wrapper}>
       <div className={css.wrapper_name_button}>
@@ -40,16 +40,16 @@ const TodoInputCard = ({
       <div className={css.wrapper_input_button}>
         <input
           className={css.input}
-          placeholder="введите задачу"
-          value={cardData}
-          onChange={(itemInput) => setCardData(itemInput.target.value)}
+          placeholder="Введите задачу"
+          value={cardInputValue}
+          onChange={(itemInput) => setCardInputValue(itemInput.target.value)}
         />
         <button
           className={css.button}
-          disabled={!cardData.trim()}
+          disabled={!cardInputValue.trim()}
           onClick={() => {
             const sameElement = subList.find((subListItem) => {
-              return cardData === subListItem.name;
+              return cardInputValue === subListItem.name;
             });
             if (!sameElement) {
               const nextTodoList = todoList.map((itemTodoList) => {
@@ -60,11 +60,11 @@ const TodoInputCard = ({
                   ...itemTodoList,
                   subList: [
                     ...itemTodoList.subList,
-                    { id: Date.now(), name: cardData },
+                    { id: Date.now(), name: cardInputValue },
                   ],
                 };
               });
-              setCardData("");
+              setCardInputValue("");
               setTodoList(nextTodoList);
             }
           }}
@@ -75,7 +75,7 @@ const TodoInputCard = ({
       <div className={css.wrapper_subList}>
         {subList.map((subListItem) => {
           return (
-            <div className={css.wrapper_name}>
+            <div className={css.wrapper_name} key={subListItem.id}>
               <h3 className={css.title_name}> ▪ {subListItem.name} </h3>
               <button
                 className={css.button}

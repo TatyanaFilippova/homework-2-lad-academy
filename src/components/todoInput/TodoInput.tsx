@@ -1,13 +1,11 @@
 import css from "./todoInput.module.css";
 import { useState } from "react";
-import type { TodoItem } from "../../App";
 
 interface TodoInputProps {
-  todoList: TodoItem[];
-  setTodoList: (todoList: TodoItem[]) => void;
+  addTodoItem: (value: string) => void;
 }
 
-const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
+const TodoInput = ({ addTodoItem }: TodoInputProps) => {
   const [inputValue, setInputValue] = useState("");
   return (
     <div className={css.wrapper}>
@@ -20,17 +18,7 @@ const TodoInput = ({ setTodoList, todoList }: TodoInputProps) => {
       <button
         disabled={!inputValue.trim()}
         onClick={() => {
-          const sameElement = todoList.find((todoListItem) => {
-            return inputValue === todoListItem.name;
-          });
-          if (!sameElement) {
-            const nextTodoList = [
-              ...todoList,
-              { name: inputValue, id: Date.now(), subList: [] },
-            ];
-            setTodoList(nextTodoList);
-            setInputValue("");
-          }
+          addTodoItem(inputValue);
         }}
       >
         Добавить

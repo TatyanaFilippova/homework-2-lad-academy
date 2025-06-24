@@ -7,37 +7,56 @@ import axios from "axios";
 export interface TodoItem {
   id: number;
   name: string;
-  subList: {
-    id: number;
-    name: string;
-  }[];
+  subList: TodoSubItem[];
+}
+
+export interface TodoSubItem {
+  id: number;
+  name: string;
+}
+
+interface IResponseTask {
+  id: number;
+  title: string;
+  description?: string;
 }
 
 function App() {
   const [todoList, setTodoList] = useState<TodoItem[]>([]);
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/tasks`);
+      const items = response.data.map((item: IResponseTask) => {
+        return { id: item.id, name: item.title, subList: [] };
+      });
+      setTodoList(items);
+    } catch {
+      // setTodoList();
+    } finally {
+      // setTodoList();
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/tasks`);
-        console.log(response.data);
-        const items = response.data.map((item: any) => {
-          return { id: item.id, name: item.title, subList: [] };
-        });
-        console.log(items);
-        setTodoList(items);
-      } catch {
-        // setTodoList();
-      } finally {
-        // setTodoList();
-      }
-    };
     fetchData();
   }, []);
+
+  const addTodoItem = async (value: string) => {
+    const sameElement = todoList.find((todoListItem) => {
+      return value === todoListItem.name;
+    });
+    if (!sameElement) {
+      await axios.post(`http://localhost:3000/tasks`, {
+        title: value,
+        description: "",
+      });
+      await fetchData();
+    }
+  };
 
   return (
     <div className={css.wrapper}>
       <h1 className={css.title}>To-do list</h1>
-      <TodoInput setTodoList={setTodoList} todoList={todoList} />
+      <TodoInput addTodoItem={addTodoItem} />
       <div className={css.wrapper_card}>
         {todoList.map((todoItem) => (
           <TodoInputCard

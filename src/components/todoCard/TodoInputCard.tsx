@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { TodoItem } from "../../App";
+import type { TodoItem, TodoSubItem } from "../../App";
 import css from "./todoInputCard.module.css";
 
 interface TodoCardProps {
@@ -7,10 +7,8 @@ interface TodoCardProps {
   id: number;
   todoList: TodoItem[];
   setTodoList: (todoList: TodoItem[]) => void;
-  subList: {
-    id: number;
-    name: string;
-  }[];
+  deleteTodoItem: (id: number) => void;
+  subList: TodoSubItem[];
 }
 
 const TodoInputCard = ({
@@ -19,6 +17,7 @@ const TodoInputCard = ({
   setTodoList,
   id,
   subList,
+  deleteTodoItem,
 }: TodoCardProps) => {
   const [cardInputValue, setCardInputValue] = useState("");
   return (
@@ -28,10 +27,7 @@ const TodoInputCard = ({
         <button
           className={css.button}
           onClick={() => {
-            const filterList = todoList.filter((todoItem) => {
-              return todoItem.id !== id;
-            });
-            setTodoList(filterList);
+            deleteTodoItem(id);
           }}
         >
           Удалить

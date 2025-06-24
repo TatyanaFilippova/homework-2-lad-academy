@@ -53,6 +53,11 @@ function App() {
     }
   };
 
+  const deleteTodoItem = async (id: number) => {
+    await axios.delete(`http://localhost:3000/tasks/${id}`);
+    await fetchData();
+  };
+
   return (
     <div className={css.wrapper}>
       <h1 className={css.title}>To-do list</h1>
@@ -60,6 +65,7 @@ function App() {
       <div className={css.wrapper_card}>
         {todoList.map((todoItem) => (
           <TodoInputCard
+            deleteTodoItem={deleteTodoItem}
             key={todoItem.id}
             name={todoItem.name}
             todoList={todoList}

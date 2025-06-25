@@ -18,7 +18,7 @@ const useTasks = () => {
       });
       setTodoList(items);
     } catch {
-      // setTodoList();
+      alert("Произошла ошибка");
     }
   };
   useEffect(() => {
@@ -26,21 +26,29 @@ const useTasks = () => {
   }, []);
 
   const addTodoItem = async (value: string) => {
-    const sameElement = todoList.find((todoListItem) => {
-      return value === todoListItem.name;
-    });
-    if (!sameElement) {
-      await api.post(`/tasks`, {
-        title: value,
-        description: "",
+    try {
+      const sameElement = todoList.find((todoListItem) => {
+        return value === todoListItem.name;
       });
-      await fetchData();
+      if (!sameElement) {
+        await api.post(`/tasks`, {
+          title: value,
+          description: "",
+        });
+        await fetchData();
+      }
+    } catch {
+      alert("Произошла ошибка добавления задачи");
     }
   };
 
   const deleteTodoItem = async (id: number) => {
-    await api.delete(`/tasks/${id}`);
-    await fetchData();
+    try {
+      await api.delete(`/tasks/${id}`);
+      await fetchData();
+    } catch {
+      alert("Произошла ошибка удаления задачи");
+    }
   };
 
   const addTodoSubItem = (value: string, id: number) => {

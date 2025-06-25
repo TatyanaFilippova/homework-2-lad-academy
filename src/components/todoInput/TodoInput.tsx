@@ -19,6 +19,7 @@ const TodoInput = ({ addTodoItem }: TodoInputProps) => {
         disabled={!inputValue.trim()}
         onClick={() => {
           addTodoItem(inputValue);
+          setInputValue("");
         }}
       >
         Добавить

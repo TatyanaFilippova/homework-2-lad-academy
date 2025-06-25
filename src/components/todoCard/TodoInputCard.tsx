@@ -1,23 +1,23 @@
 import { useState } from "react";
-import type { TodoItem, TodoSubItem } from "../../App";
 import css from "./todoInputCard.module.css";
+import type { TodoSubItem } from "../../types.ts";
 
 interface TodoCardProps {
   name: string;
   id: number;
-  todoList: TodoItem[];
-  setTodoList: (todoList: TodoItem[]) => void;
   deleteTodoItem: (id: number) => void;
   subList: TodoSubItem[];
+  addTodoSubItem: (value: string, id: number) => void;
+  deleteTodoSubItem: (id: number, subItemId: number) => void;
 }
 
 const TodoInputCard = ({
   name,
-  todoList,
-  setTodoList,
   id,
   subList,
   deleteTodoItem,
+  addTodoSubItem,
+  deleteTodoSubItem,
 }: TodoCardProps) => {
   const [cardInputValue, setCardInputValue] = useState("");
   return (
@@ -44,25 +44,8 @@ const TodoInputCard = ({
           className={css.button}
           disabled={!cardInputValue.trim()}
           onClick={() => {
-            const sameElement = subList.find((subListItem) => {
-              return cardInputValue === subListItem.name;
-            });
-            if (!sameElement) {
-              const nextTodoList = todoList.map((itemTodoList) => {
-                if (itemTodoList.id !== id) {
-                  return itemTodoList;
-                }
-                return {
-                  ...itemTodoList,
-                  subList: [
-                    ...itemTodoList.subList,
-                    { id: Date.now(), name: cardInputValue },
-                  ],
-                };
-              });
-              setCardInputValue("");
-              setTodoList(nextTodoList);
-            }
+            addTodoSubItem(cardInputValue, id);
+            setCardInputValue("");
           }}
         >
           Добавить
@@ -76,18 +59,7 @@ const TodoInputCard = ({
               <button
                 className={css.button}
                 onClick={() => {
-                  const nextTodoList = todoList.map((todoItem) => {
-                    if (todoItem.id !== id) {
-                      return todoItem;
-                    }
-                    return {
-                      ...todoItem,
-                      subList: subList.filter((subItem) => {
-                        return subItem.id !== subListItem.id;
-                      }),
-                    };
-                  });
-                  setTodoList(nextTodoList);
+                  deleteTodoSubItem(id, subListItem.id);
                 }}
               >
                 Удалить
